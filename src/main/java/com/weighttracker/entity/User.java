@@ -21,8 +21,8 @@ public class User {
     @Column(nullable = false)
     private String password;
     
-    @Column(nullable = false)
-    private String email;
+    // @Column(nullable = true) // nullでも保存できるようにする
+    // private String email;
     
     private Double targetWeight;
     
@@ -31,13 +31,13 @@ public class User {
     // コンストラクタ
     public User() {
     }
-    
-    public User(String username, String password, String email) {
+
+    // emailなし登録用の簡易コンストラクタ（ユーザー名とパスワードのみ使用）
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
-    
+
     // ゲッターとセッター
     public Integer getId() {
         return id;
@@ -62,15 +62,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // public String getEmail() {
+    //     return email;
+    // }
     
-    public String getEmail() {
-        return email;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
+    // public void setEmail(String email) {
+    //     this.email = email;
+    // }
+
     public Double getTargetWeight() {
         return targetWeight;
     }
