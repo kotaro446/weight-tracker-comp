@@ -164,7 +164,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="p-3 border rounded bg-light">
-                            <h5>あなたのBMI</h5>
+                            <h5>あなたの現在のBMI</h5>
                             <div id="bmiResult" class="display-6 mb-2">-</div>
                             <div id="bmiCategory" class="badge bg-secondary">データなし</div>
                             <div class="small text-muted mt-3">
@@ -245,7 +245,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5><i class="fas fa-weight me-2"></i>ウェイトトラッカー</h5>
-                    <p class="small">あなたの健康をサポートする体重管理アプリ</p>
+                    <p class="small">あなたの健康をサポートする体重維持アプリ</p>
                 </div>
 
             </div>
@@ -256,12 +256,16 @@
     <script th:inline="javascript">
         // ページ遷移エフェクト
         document.addEventListener('DOMContentLoaded', () => {
+            const weightRecords = /*[[${weightRecords}]]*/[];
+            const averageWeight = /*[[${averageWeight}]]*/ null;
+
             const calculateBMIButton = document.getElementById('calculateBMI');
             if (calculateBMIButton) {
                 calculateBMIButton.addEventListener('click', () => {
                     const height = parseFloat(document.getElementById('heightInput').value);
+                    // 最新の体重記録を取得（配列の並び順に依存）
                     const latestWeight = weightRecords && weightRecords.length > 0 ?
-                        weightRecords[weightRecords.length - 1].weight : null;
+                        weightRecords[0].weight : null;  // indexが0になっていることに注意（サーバー側でソート済み）
 
                     if (height && latestWeight) {
                         // 身長をメートルに変換
@@ -300,6 +304,7 @@
                     }
                 });
             }
+
             const pageContent = document.querySelector('.page-transition');
             pageContent.style.opacity = '0';
 

@@ -9,5 +9,6 @@ public class WeightTrackerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WeightTrackerApplication.class, args);
 	}
+	
 
 }

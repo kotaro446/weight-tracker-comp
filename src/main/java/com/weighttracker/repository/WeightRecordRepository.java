@@ -28,4 +28,7 @@ public interface WeightRecordRepository extends JpaRepository<WeightRecord, Long
     @Query(value = "SELECT AVG(w.weight) FROM WeightRecord w WHERE w.userId = :userId " +
            "ORDER BY w.recordedDate DESC LIMIT :limit")
     Double calculateRecentAverageWeight(@Param("userId") Integer userId, @Param("limit") Integer limit);
+    
+    @Query("SELECT w FROM WeightRecord w WHERE w.userId = :userId ORDER BY w.recordedDate DESC, w.timestamp DESC")
+List<WeightRecord> findByUserIdOrderByRecordedDateDescTimestampDesc(@Param("userId") Integer userId);
 }
