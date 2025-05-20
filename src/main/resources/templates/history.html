@@ -120,6 +120,7 @@
     </style>
 </head>
 
+
 <body>
     <!-- ナビゲーションバー -->
 
@@ -140,6 +141,37 @@
             <div class="card-body">
                 <div class="chart-container">
                     <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-calculator me-2"></i>BMI情報</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="heightInput" class="form-label">身長 (cm)</label>
+                            <input type="number" class="form-control" id="heightInput" placeholder="例: 170" min="100"
+                                max="250" step="0.1">
+                        </div>
+                        <div class="mb-3">
+                            <button id="calculateBMI" class="btn btn-primary">
+                                <i class="fas fa-calculator me-1"></i>BMIを計算
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light">
+                            <h5>あなたのBMI</h5>
+                            <div id="bmiResult" class="display-6 mb-2">-</div>
+                            <div id="bmiCategory" class="badge bg-secondary">データなし</div>
+                            <div class="small text-muted mt-3">
+                                BMI = 体重(kg) ÷ 身長(m)²
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -224,6 +256,50 @@
     <script th:inline="javascript">
         // ページ遷移エフェクト
         document.addEventListener('DOMContentLoaded', () => {
+            const calculateBMIButton = document.getElementById('calculateBMI');
+            if (calculateBMIButton) {
+                calculateBMIButton.addEventListener('click', () => {
+                    const height = parseFloat(document.getElementById('heightInput').value);
+                    const latestWeight = weightRecords && weightRecords.length > 0 ?
+                        weightRecords[weightRecords.length - 1].weight : null;
+
+                    if (height && latestWeight) {
+                        // 身長をメートルに変換
+                        const heightInMeters = height / 100;
+                        // BMI計算式: 体重(kg) ÷ 身長(m)²
+                        const bmi = latestWeight / (heightInMeters * heightInMeters);
+                        document.getElementById('bmiResult').textContent = bmi.toFixed(1);
+
+                        // BMIカテゴリ判定
+                        let category, badgeClass;
+                        if (bmi < 18.5) {
+                            category = "低体重";
+                            badgeClass = "bg-info";
+                        } else if (bmi < 25) {
+                            category = "普通体重";
+                            badgeClass = "bg-success";
+                        } else if (bmi < 30) {
+                            category = "肥満（1度）";
+                            badgeClass = "bg-warning text-dark";
+                        } else if (bmi < 35) {
+                            category = "肥満（2度）";
+                            badgeClass = "bg-danger";
+                        } else if (bmi < 40) {
+                            category = "肥満（3度）";
+                            badgeClass = "bg-danger";
+                        } else {
+                            category = "肥満（4度）";
+                            badgeClass = "bg-danger";
+                        }
+
+                        const bmiCategoryElement = document.getElementById('bmiCategory');
+                        bmiCategoryElement.textContent = category;
+                        bmiCategoryElement.className = `badge ${badgeClass}`;
+                    } else {
+                        alert('身長と体重を正しく入力してください');
+                    }
+                });
+            }
             const pageContent = document.querySelector('.page-transition');
             pageContent.style.opacity = '0';
 
