@@ -7,6 +7,7 @@
     <title>体重管理アプリ</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
+        /* --- ベースを 14px に下げる（デフォルト16px → 14px） --- */
         html {
             font-size: 87.5%;
         }
@@ -14,6 +15,7 @@
         body {
             margin: 0;
             font-family: "Segoe UI", sans-serif;
+            /* カラーコードは # から始める */
             background: linear-gradient(135deg, #3F72AF 0%, #2B5876 100%);
             color: #333;
         }
@@ -31,9 +33,11 @@
             background-color: #FFFFFF;
             border-radius: 1rem;
             padding: 1.8rem 2.4rem;
+            /* ← 少し狭めに */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 26rem;
+            /* 440px → 26rem */
         }
 
         .card h2 {
@@ -41,6 +45,7 @@
             margin-bottom: 1.2rem;
             color: #2B5876;
             font-size: 1.4rem;
+            /* 元 2rem 相当 → 小さめ */
         }
 
         .form-group {
@@ -52,11 +57,13 @@
             font-weight: 600;
             margin-bottom: 0.35rem;
             font-size: 0.9rem;
+            /* ラベルも控えめに */
         }
 
         .form-group input {
             width: 100%;
             padding: 0.55rem 0.65rem;
+            /* 高さ・余白をカット */
             border: 1px solid #ccc;
             border-radius: 0.5rem;
             font-size: 0.9rem;
@@ -98,6 +105,7 @@
 
         .logo {
             font-size: 1.6rem;
+            /* 2.2rem → 控えめ */
             margin-bottom: 0.6rem;
             text-align: center;
             color: #fff;
@@ -107,6 +115,7 @@
 
 <body>
     <div class="container">
+        <!-- 閉じタグ修正 -->
         <div class="logo">健康管理アプリ</div>
         <div class="card">
             <h2>アカウント登録</h2>
@@ -117,7 +126,10 @@
                 <div class="form-group">
                     <label for="username">ユーザー名</label>
                     <input type="text" id="username" name="username" required autofocus />
-
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required />
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
