@@ -38,18 +38,18 @@ public class UserService implements UserDetailsService {
         );
     }
     
-    public User registerUser(String username, String password, String email) {
+    public User registerUser(String username, String password/*, String email*/) {
         // 既に存在するユーザー名かメールアドレスがないか確認
         if (userRepository.existsByUsername(username)) {
             throw new IllegalArgumentException("このユーザー名は既に使用されています");
         }
         
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("このメールアドレスは既に使用されています");
-        }
+        //if (userRepository.existsByEmail(email)) {
+        //    throw new IllegalArgumentException("このメールアドレスは既に使用されています");
+        //}
         
         // パスワードをハッシュ化して新しいユーザーを作成
-        User newUser = new User(username, passwordEncoder.encode(password), email);
+        User newUser = new User(username, passwordEncoder.encode(password) );
         return userRepository.save(newUser);
     }
     
@@ -79,4 +79,7 @@ public class UserService implements UserDetailsService {
         user.setTargetWeight(targetWeight);
         return userRepository.save(user);
     }
+
+   
+
 }

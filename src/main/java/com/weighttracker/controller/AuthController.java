@@ -32,7 +32,7 @@ public class AuthController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("confirmPassword") String confirmPassword,
-            @RequestParam("email") String email,
+            //@RequestParam("email") String email,
             RedirectAttributes redirectAttributes) {
         
         // パスワード確認のチェック
@@ -43,7 +43,7 @@ public class AuthController {
         
         try {
             @SuppressWarnings("unused")
-            User user = userService.registerUser(username, password, email);
+            User user = userService.registerUser(username, password);
             redirectAttributes.addFlashAttribute("success", "登録が完了しました。ログインしてください。");
             return "redirect:/login";
         } catch (IllegalArgumentException e) {
