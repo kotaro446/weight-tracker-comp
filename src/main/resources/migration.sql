@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
-INSERT INTO users (username, password, email, enabled)
-VALUES ('default_user', '$2a$10$rRYJJKlNtpmuU6NIVf3MAO1hzStwdrlK0MbL0OgutEh2Q3P9JG5AO', 'default@example.com', TRUE)
+INSERT INTO users (username, password, enabled)
+VALUES ('default_user', '$2a$10$rRYJJKlNtpmuU6NIVf3MAO1hzStwdrlK0MbL0OgutEh2Q3P9JG5AO', TRUE)
 ON DUPLICATE KEY UPDATE username = VALUES(username);
 
 UPDATE weight_records
